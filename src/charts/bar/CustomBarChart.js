@@ -68,11 +68,11 @@ const CustomBarChart = (props) => {
       }}
     > 
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="YrSold"/>
-      <YAxis dataKey="SalePrice"/>
+      <XAxis dataKey={props.xAxis} />
+      <YAxis dataKey={props.yAxis}/>
       <Tooltip />
       <Legend />
-      <Bar  type="monotone" dataKey={props.lineKey} stroke="#8884d8" />
+      <Bar  type="monotone" dataKey={props.lineKey} fill="#8884d8" />
     </BarChart>
   );
 };

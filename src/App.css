@@ -2,8 +2,8 @@
   text-align: center;
 }
 
-body {
-  background-color: aliceblue;
+#root {
+  background-color: rgb(236, 236, 236);
 }
 
 .App-header {
@@ -15,13 +15,28 @@ body {
   color: white;
 }
 
+.recharts-wrapper {
+  margin: auto;
+}
+
 .box1 {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 1vh;
 }
 
-.recharts-wrapper {
-  background-color: rgb(242, 246, 250);
+.show-chart {
+  background-color: rgb(244, 246, 248);
   padding: 2vh;
   border: 1px solid rgb(211, 211, 211);
+}
+
+.title-paragraph {
+  margin: 0 0 1vh 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.bold {
+  font-weight: 500;
 }

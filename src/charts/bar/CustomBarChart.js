@@ -17,7 +17,6 @@ const CustomBarChart = (props) => {
     }
   }, []);
  
-  const Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const getGM = () => {
     var result1 = [];
     Object.values(
@@ -26,6 +25,7 @@ const CustomBarChart = (props) => {
           let obj = {};
           obj[props.xAxis] = value[props.xAxis];
           obj[props.lineKey] = 0;
+          obj[props.orderField] =  value[props.orderField];
           acc[value[props.xAxis]] = obj;
           result1.push(acc[value[props.xAxis]]);
         }
@@ -33,14 +33,10 @@ const CustomBarChart = (props) => {
         return acc;
       }, {})
     );
-
-    if (result1[0].YrSold !== undefined) {
-      var r = result1.sort(function(a,b) {return a.YrSold - b.YrSold});
-    } else {
-      var r = result1.sort(function(a,b) {return Months.indexOf(a.MoSold) - Months.indexOf(b.MoSold)});
-    }
     
-    return result1;
+    return result1.sort((a, b) => {
+      return a[props.orderField] < b[props.orderField] ? -1 : 1
+    });
   };
 
   return (

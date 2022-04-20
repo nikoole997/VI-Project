@@ -21,10 +21,10 @@ const App = () => {
 
   const changeMonth = (records) => {
     let newRecords = records.map((el) => {
+      el.Order = el.MoSold;
       el.MoSold = getMonth(el.MoSold);
       return el;
     });
-
     setRecords(newRecords);
   };
 
@@ -127,6 +127,7 @@ const App = () => {
                 lineKey="SalePrice"
                 xAxis="YrSold"
                 yAxis="SalePrice"
+                orderField="YrSold"
               />
             </div>
             <div className="show-chart">
@@ -135,6 +136,7 @@ const App = () => {
                 xAxis="MoSold"
                 yAxis="SalePrice"
                 lineKey="SalePrice"
+                orderField="Order"
               />
             </div>
           </div>

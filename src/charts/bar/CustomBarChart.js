@@ -16,7 +16,8 @@ const CustomBarChart = (props) => {
       setRecords(getGM());
     }
   }, []);
-
+ 
+  const Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const getGM = () => {
     var result1 = [];
     Object.values(
@@ -32,6 +33,13 @@ const CustomBarChart = (props) => {
         return acc;
       }, {})
     );
+
+    if (result1[0].YrSold !== undefined) {
+      var r = result1.sort(function(a,b) {return a.YrSold - b.YrSold});
+    } else {
+      var r = result1.sort(function(a,b) {return Months.indexOf(a.MoSold) - Months.indexOf(b.MoSold)});
+    }
+    
     return result1;
   };
 

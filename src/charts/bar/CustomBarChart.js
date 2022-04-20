@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -9,57 +9,37 @@ import {
   Legend,
 } from "recharts";
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
-
 const CustomBarChart = (props) => {
+  const [records, setRecords] = useState([]);
+  useEffect(() => {
+    if (props.records.length > 0) {
+      setRecords(getGM());
+    }
+  }, []);
+
+  const getGM = () => {
+    var result1 = [];
+    Object.values(
+      props.records.reduce((acc, value) => {
+        if (!acc[value[props.xAxis]]) {
+          let obj = {};
+          obj[props.xAxis] = value[props.xAxis];
+          obj[props.lineKey] = 0;
+          acc[value[props.xAxis]] = obj;
+          result1.push(acc[value[props.xAxis]]);
+        }
+        acc[value[props.xAxis]][props.lineKey] += value[props.lineKey];
+        return acc;
+      }, {})
+    );
+    return result1;
+  };
+
   return (
     <BarChart
       width={700}
       height={500}
-      data={props.records} 
+      data={records}
       margin={{
         top: 5,
         right: 30,
@@ -69,10 +49,10 @@ const CustomBarChart = (props) => {
     > 
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey={props.xAxis} />
-      <YAxis dataKey={props.yAxis}/>
+      <YAxis dataKey={props.yAxis} />
       <Tooltip />
       <Legend />
-      <Bar  type="monotone" dataKey={props.lineKey} fill="#8884d8" />
+      <Bar type="monotone" dataKey={props.lineKey} fill="#8884d8" />
     </BarChart>
   );
 };

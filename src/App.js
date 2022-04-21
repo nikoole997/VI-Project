@@ -3,6 +3,9 @@ import "./App.css";
 import CustomLineChart from "./charts/line/CustomLineChart";
 import CustomBarChart from "./charts/bar/CustomBarChart";
 import CustomPieChart from "./charts/pie/CustomPieChart";
+import CustomSimpleRadialPieChart from "./charts/pie/CustomSimpleRadialPieChart";
+import CustomScatterChart from "./charts/scatter/CustomerScatterChart";
+import CustomCardinalAreaChart from "./charts/area/CustomCardinalAreaChart";
 
 const App = () => {
   const [records, setRecords] = useState([]);
@@ -21,6 +24,7 @@ const App = () => {
 
   const changeMonth = (records) => {
     let newRecords = records.map((el) => {
+      el.Order = el.MoSold;
       el.MoSold = getMonth(el.MoSold);
       return el;
     });
@@ -79,7 +83,7 @@ const App = () => {
             <header className="App-header">Dashboard HousePricing</header>
           </div>
           <div className="box1">
-            <div className="show-chart" style={{ width: "50%" }}>
+            <div className="show-chart" style={{ width: "60%" }}>
               <CustomLineChart
                 records={records}
                 xAxis="LotArea"
@@ -87,7 +91,7 @@ const App = () => {
                 color="#07BF03"
               />
             </div>
-            <div className="d-block" style={{ width: "24%" }}>
+            <div className="d-block pie-chart">
               <div className="show-chart d-flex justify-content-center">
                 <CustomPieChart
                   color="#07BF03"
@@ -103,7 +107,7 @@ const App = () => {
                 />
               </div>
             </div>
-            <div className="d-block" style={{ width: "24%" }}>
+            <div className="d-block pie-chart">
               <div className="show-chart d-flex justify-content-center">
                 <CustomPieChart
                   color="#00A4F9"
@@ -121,20 +125,53 @@ const App = () => {
             </div>
           </div>
           <div className="box1">
-            <div className="show-chart">
+            <div className="show-chart bar-chart">
               <CustomBarChart
                 records={records}
                 lineKey="SalePrice"
                 xAxis="YrSold"
                 yAxis="SalePrice"
+                orderField="YrSold"
               />
             </div>
-            <div className="show-chart">
+
+            <div className="show-chart bar-chart">
               <CustomBarChart
                 records={records}
                 xAxis="MoSold"
                 yAxis="SalePrice"
                 lineKey="SalePrice"
+                orderField="Order"
+              />
+            </div>
+            <div className="show-chart scatter-chart">
+              <CustomScatterChart
+                records={records}
+                xAxis="GarageArea"
+                lineKey="SalePrice"
+              />
+            </div>
+            <div className="show-chart scatter-chart">
+              <CustomScatterChart
+                records={records}
+                xAxis="GrLivArea"
+                lineKey="SalePrice"
+              />
+            </div>
+          </div>
+          <div className="box1">
+            <div className="show-chart radial-pie-chart">
+              <CustomSimpleRadialPieChart
+                field={"BsmtFinType1"}
+                records={records}
+              />
+            </div>
+
+            <div className="show-chart cardinal-area-chart">
+              <CustomCardinalAreaChart
+                records={records}
+                xAxis="WoodDeckSF"
+                lineKey="MSSubClass"
               />
             </div>
           </div>

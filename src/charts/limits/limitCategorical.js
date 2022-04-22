@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 const LimitCategorical = (props) => {
   return (
-    <>
+    <div className="filter-box">
       {props.records.map((el) => {
         return (
           <Form.Check
@@ -17,7 +17,7 @@ const LimitCategorical = (props) => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 

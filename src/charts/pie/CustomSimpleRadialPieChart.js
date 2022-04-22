@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  RadialBarChart,
+  RadialBar,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
 import LimitCategorical from "../limits/limitCategorical";
 
-const CustomPieChart = (props) => {
+const CustomSimpleRadialPieChart = (props) => {
   const [records, setRecords] = useState([]);
   const [names, setNames] = useState([]);
 
@@ -21,7 +27,9 @@ const CustomPieChart = (props) => {
 
   const getCountFromField = (filter) => {
     let array = [];
+
     props.records.map((record) => {
+      let randomColor = Math.floor(Math.random() * 16777215).toString(16);
       let foundElem = array.find((elem) => elem.name == record[props.field]);
       if (foundElem) {
         foundElem.value += 1;
@@ -30,7 +38,11 @@ const CustomPieChart = (props) => {
           (el) => el.name == [record[props.field]] && el.value == true
         )
       ) {
-        array.push({ name: record[props.field], value: 1 });
+        array.push({
+          name: record[props.field],
+          value: 1,
+          fill: "#" + randomColor,
+        });
       }
     });
     setRecords(array);
@@ -43,27 +55,47 @@ const CustomPieChart = (props) => {
     getCountFromField(names);
   };
 
+  const style = {
+    top: "50%",
+    right: 0,
+    transform: "translate(0, -50%)",
+    lineHeight: "24px",
+  };
+
   return (
-    <div className="">
+    <div>
       <p className="title-paragraph bold">{props.field}</p>
-      <ResponsiveContainer width="100%" height={200}>
-        <PieChart>
-          <Pie
+      <ResponsiveContainer width="100%" height={300}>
+        <RadialBarChart
+          width={500}
+          height={300}
+          cx={150}
+          cy={150}
+          innerRadius={10}
+          outerRadius={150}
+          barSize={10}
+          data={records}
+        >
+          <RadialBar
+            minAngle={15}
+            label={{ position: "insideStart", fill: "#fff" }}
+            background
+            clockWise
             dataKey="value"
-            isAnimationActive={false}
-            data={records}
-            cx="50%"
-            cy="50%"
-            outerRadius={50}
-            fill={props.color}
-            label
           />
-          <Tooltip />
-        </PieChart>
+          <Legend
+            iconSize={10}
+            width={120}
+            height={140}
+            layout="vertical"
+            verticalAlign="middle"
+            wrapperStyle={style}
+          />
+        </RadialBarChart>
       </ResponsiveContainer>
       <LimitCategorical records={names} onChangeCheckBox={onChangeCheckBox} />
     </div>
   );
 };
 
-export default CustomPieChart;
+export default CustomSimpleRadialPieChart;

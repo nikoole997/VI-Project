@@ -25,6 +25,46 @@
   margin-bottom: 1vh;
 }
 
+.custom-chart {
+  flex-direction: row;
+}
+
+.pie-chart {
+  width: 19%;
+}
+
+.bar-chart,
+.scatter-chart {
+  width: 24%;
+}
+
+.cardinal-area-chart {
+  width: 60%;
+}
+
+.radial-pie-chart {
+  width: 38%;
+}
+
+@media (max-width: 1290px) {
+  .custom-chart {
+    flex-direction: column !important;
+  }
+
+  .pie-chart,
+  .bar-chart,
+  .scatter-chart,
+  .radial-pie-chart,
+  .cardinal-area-chart {
+    width: 60%;
+  }
+
+  .box1 {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
 .show-chart {
   background-color: rgb(244, 246, 248);
   padding: 2vh;
@@ -39,4 +79,11 @@
 
 .bold {
   font-weight: 500;
+}
+
+.filter-box {
+  background-color: rgb(234, 244, 255);
+  border: 1px solid rgb(206, 229, 253);
+  padding: 1vh;
+  font-size: 13px;
 }
